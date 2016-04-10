@@ -1,0 +1,87 @@
+<html>
+<head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+
+   <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Profile</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Log In</a></li>
+        <li><a href="#">Sign Up</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+	<h1>
+		Testing server redirection of landing page.
+	</h1>
+
+	<form onsubmit="return getData();">
+	<label>Enter Stackoverflow link to profile: </label>
+
+	<input id="stackoverflow"type="text" class="form-control" style="width:600px" placeholder="http://stackoverflow.com/users/4481287/kevin-cohen?tab=profile"/>
+	<br><br>
+	<button class = "form-control" style="width:300px">
+		Click me to get stack overfow data
+	</button>
+	</form>
+</body>
+
+<script>
+
+function getData()
+{
+	var link = document.getElementById("stackoverflow").value;
+
+	var idIndex= link.indexOf("users/");
+
+	var str = link.substring(idIndex+6);
+
+	var nextSlash = str.indexOf("/");
+
+	var idNumber = str.substring(0,nextSlash);
+
+	console.log(idNumber);
+
+
+		jQuery.ajax({
+	    url: "https://api.stackexchange.com/2.2/users/"+idNumber + "?site=stackoverflow",
+	    dataType: 'json',
+	    error: function(){
+	    	alert('Error! There was an error');
+	    },
+	    success: function(data){
+				console.log(JSON.stringify(data));
+			}
+		});
+
+	return false;
+}
+
+
+</script>
+</html>
