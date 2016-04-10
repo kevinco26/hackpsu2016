@@ -8,9 +8,13 @@
    padding-top: 20px;
 }
 
-.plot-title {
+.plot-title1 {
    position: relative;
    left: 55px;
+}
+
+.plot-title2 {
+   position: relative;
 }
 
 li {
