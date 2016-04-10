@@ -138,6 +138,10 @@ app.get('/homepage.js',function(req,res){
    res.sendFile(__dirname + '/homepage.js');
 });
 
+app.get('/jobPosting',function(req,res){
+   res.sendFile(__dirname + '/jobPosting.html');
+});
+
 app.get('/bootbox.min.js',function(req,res){
    res.sendFile(__dirname + '/bootbox.min.js');
 });
