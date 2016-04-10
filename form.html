@@ -40,10 +40,15 @@
 		Testing server redirection of landing page.
 	</h1>
 
-	<form onsubmit="return getData();">
+	<form method="post" action="https://www.google.com" onsubmit="return getData();">
 	<label>Enter Stackoverflow link to profile: </label>
 
-	<input id="stackoverflow"type="text" class="form-control" style="width:600px" placeholder="http://stackoverflow.com/users/4481287/kevin-cohen?tab=profile"/>
+	<input id="stackoverflow"type="text" class="form-control" style="width:600px" placeholder=" "/>
+	<br><br>
+
+	<label>Enter codewars username: </label>
+	<input id="codewars"type="text" class="form-control" style="width:600px" placeholder="http://codewars.com/users/kevinco"/>
+
 	<br><br>
 	<button class = "form-control" style="width:300px">
 		Click me to get stack overfow data
@@ -56,6 +61,7 @@
 function getData()
 {
 	var link = document.getElementById("stackoverflow").value;
+	var user = document.getElementById("codewars").value;
 
 	var idIndex= link.indexOf("users/");
 
@@ -64,22 +70,88 @@ function getData()
 	var nextSlash = str.indexOf("/");
 
 	var idNumber = str.substring(0,nextSlash);
+	
 
-	console.log(idNumber);
+	// console.log(idNumber);
 
+
+	var data = {stackoverflow:idNumber,githubUser:user};
+	
+
+		// jQuery.ajax({
+	 //    url: "https://api.stackexchange.com/2.2/users/"+idNumber + "?site=stackoverflow&filter=!-*f(6q0gNxwu",
+	 //    dataType: 'json',
+	 //    error: function(){
+	 //    	alert('Error! There was an error');
+	 //    },
+	 //    success: function(data){
+		// 		console.log(JSON.stringify(data));
+
+		// 		jQuery.ajax({
+		// 		  type: "POST",
+		// 		  url: "/hackpsu/insert",
+		// 		  data: {data:data},
+		// 		  success: "yes",
+		// 		  dataType: JSON
+		// 		});
+
+		// 	}
+		// });
 
 		jQuery.ajax({
-	    url: "https://api.stackexchange.com/2.2/users/"+idNumber + "?site=stackoverflow",
-	    dataType: 'json',
-	    error: function(){
-	    	alert('Error! There was an error');
-	    },
-	    success: function(data){
-				console.log(JSON.stringify(data));
-			}
+				  type: "POST",
+				  url: "/hackpsu/insert",
+				  data: data,
+				  dataType: JSON,
+				  success: function(data){
+				 	confirm("aa");
+				  },
+				
 		});
 
-	return false;
+		//  jQuery.ajax({
+		//  	type: "POST",
+		//     url: "/hackpsu/insert",
+		//     data: data,
+		// 	dataType: JSON,
+		//     error: function(){
+		//     	// return false;
+		//     	// alert('Error! There was an error fetching the list of majors. Refresh and try again.');
+		//     },
+		//     success: function(){
+		//     	// return true;
+		// 		// bootbox.dialog({
+		// 		// 	message: "Thank you for submitting the form",
+		// 		// 	title: "Form submitted",
+		// 		// 	buttons: {
+		// 		// 		success: {
+		// 		// 		    label: "Continue",
+		// 		// 		    className: "btn-primary btn-info",
+		// 		// 		    callback: function() {
+		// 		// 		      
+		// 		// 		      //	window.location.href = ;
+
+		// 		// 		    }
+		// 		// 		},
+		// 		// 	}
+
+		// 		// });
+		// 	}
+		// });
+
+
+		return false;
+		// jQuery.ajax({
+	 //    url: "https://api.github.com/users/"+user+"/repos",
+	 //    dataType: 'json',
+	 //    error: function(){
+	 //    	alert('Error! There was an error');
+	 //    },
+	 //    success: function(data){
+		// 		console.log(data);
+		// 	}
+		// });
+
 }
 
 
