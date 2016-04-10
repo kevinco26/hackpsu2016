@@ -221,6 +221,31 @@
                   </div>
                   <div class="form-group col-lg-6"></div>
                </div>
+
+                <div class="userOptions">
+                  <div class="row">
+                     <div class="form-group col-lg-6">
+                     <label>Technical Skills</label>
+                     <input class="form-control skillValue" placeholder="Java"></input>
+                     </div>
+                     <div class="form-group col-lg-6">
+                     <label>Proficiency level</label>
+                     <select class="form-control proficiencyLevel">
+                     <option value ="10">Profficient</option>
+                     <option value="6">Average</option>
+                     <option value="3">Familiar</option>
+                     </select>
+
+                     </div>
+
+                  </div> 
+               </div>
+
+               <div class="skillsQuestions">
+               </div>
+
+                <button class="btn btn-info" onclick="appendSkills()">Add Additional Skill</button>
+                <br>
                <div class="row">
                      <div class="form-group col-lg-12">
                      <label><span class="userOptions">Personal </span>Website</label>
@@ -230,13 +255,13 @@
                <div class="userOptions">
                   <div class="row">
                      <div class="form-group col-lg-12">
-                     <label>GitHub (optional, but IMPORTANT)</label>
+                     <label>GitHub link (optional, but IMPORTANT)</label>
                      <input class="form-control" id="github" placeholder="https://github.com/user"></input>
                      </div>
                   </div>
                   <div class="row">
                      <div class="form-group col-lg-12">
-                     <label>Stack Exchange Profile Link(optional, but IMPORTANT)</label>
+                     <label>Stack Exchange Profile link(optional, but IMPORTANT)</label>
                      <input class="form-control" id="stackoverflow" placeholder="http://stackoverflow.com/users/xxxxxxx/userxxxxxxx"></input>
                      </div>
                   </div>
@@ -261,6 +286,22 @@
       </div>
    </footer>
    <script>
+
+   function createSkills()
+   {
+    var skill=$("<div class='userOptions'><div class='row'><div class='form-group col-lg-6'><label>Technical Skills</label> <input class='form-control skillValue' placeholder='Java'></input> </div><div class='form-group col-lg-6'><label>Proficiency level</label><select class='form-control proficiencyLevel'><option value ='10'>Profficient</option> <option value='6'>Average</option><option value='3'>Familiar</option></select></div> </div></div>");
+   
+    $('.skillsQuestions').append(skill);
+   }
+
+   
+   function appendSkills(){
+
+    createSkills();
+
+   }
+
+
    
    function insertDatabase()
    {
@@ -290,7 +331,17 @@
      
 
 
-      
+      var test = $(".skillValue");
+      // console.log(test[0].value);
+      var test2 = $(".proficiencyLevel");
+      var testObj = [];
+      for (var i = 0; i < test.length; i++)
+      {
+        var obj = {skillValue: test[i].value, proficiencyLevel: test2[i].value};
+
+        testObj.push(obj);
+      }
+      // console.log(testObj);
       var username = document.getElementById("username").value;
       var fname = document.getElementById("fname").value;
       var lname = document.getElementById("lname").value;
@@ -318,6 +369,7 @@
                   state:state,
                   zip:zip,
                   website:website,
+                  skills:testObj,
                   stackoverflow:idNumber,
                   githubUser:github
                   };
