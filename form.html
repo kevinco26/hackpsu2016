@@ -40,14 +40,14 @@
 		Testing server redirection of landing page.
 	</h1>
 
-	<form method="post" action="https://www.google.com" onsubmit="return getData();">
+	<form onsubmit="return getData();">
 	<label>Enter Stackoverflow link to profile: </label>
 
 	<input id="stackoverflow"type="text" class="form-control" style="width:600px" placeholder=" "/>
 	<br><br>
 
 	<label>Enter codewars username: </label>
-	<input id="codewars"type="text" class="form-control" style="width:600px" placeholder="http://codewars.com/users/kevinco"/>
+	<input id="codewars"type="text" class="form-control" style="width:600px" placeholder=""/>
 
 	<br><br>
 	<button class = "form-control" style="width:300px">
@@ -57,7 +57,6 @@
 </body>
 
 <script>
-
 function getData()
 {
 	var link = document.getElementById("stackoverflow").value;
@@ -74,40 +73,28 @@ function getData()
 
 	// console.log(idNumber);
 
-
-	var data = {stackoverflow:idNumber,githubUser:user};
-	
+		jQuery.ajax({
+	    url: "https://www.codewars.com/api/v1/users/"+user,
+	 //   beforeSend: function(xhr){
+	  //  	xhr.setRequestHeader("Authorization:_sgcV8RsXVSjGSZxDKS3");},
+	    error: function(data){
+	    	alert(data.statusText);
+	    },
+	    success: function(data){
+				alert(JSON.stringify(data));
+			}              
+		});
 
 		// jQuery.ajax({
-	 //    url: "https://api.stackexchange.com/2.2/users/"+idNumber + "?site=stackoverflow&filter=!-*f(6q0gNxwu",
-	 //    dataType: 'json',
-	 //    error: function(){
-	 //    	alert('Error! There was an error');
-	 //    },
-	 //    success: function(data){
-		// 		console.log(JSON.stringify(data));
-
-		// 		jQuery.ajax({
 		// 		  type: "POST",
 		// 		  url: "/hackpsu/insert",
-		// 		  data: {data:data},
-		// 		  success: "yes",
-		// 		  dataType: JSON
-		// 		});
-
-		// 	}
-		// });
-
-		jQuery.ajax({
-				  type: "POST",
-				  url: "/hackpsu/insert",
-				  data: data,
-				  dataType: JSON,
-				  success: function(data){
-				 	confirm("aa");
-				  },
+		// 		  data: data,
+		// 		  dataType: JSON,
+		// 		  success: function(data){
+		// 		 	confirm("aa");
+		// 		  },
 				
-		});
+		// });
 
 		//  jQuery.ajax({
 		//  	type: "POST",
