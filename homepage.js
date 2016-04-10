@@ -1,21 +1,32 @@
 $( document ).ready(function() {
-    function initMap(position) {
-       mapDiv = document.getElementById('map');
-        console.log("here");
-        var map = new google.maps.Map(mapDiv, {
-          center: {lat: position.coords.latitude, lng: position.coords.longitude},
-          scrollwheel: false,
-          zoom: 8
+    $( "#main-content" ).fadeIn( 1200, function() {
+    // Animation complete
+      });
+
+    $("#signUpModal").on("show", function() {    // wire up the OK button to dismiss the modal when shown
+        $("#signUpModal a.btn").on("click", function(e) {
+            console.log("button pressed");   // just as an example...
+            $("#signUpModal").modal('hide');     // dismiss the dialog
         });
-      }
+    });
+    $("#signUpModal").on("hide", function() {    // remove the event listeners when the dialog is dismissed
+        $("#signUpModal a.btn").off("click");
+    });
+    
+    $("#signUpModal").on("hidden", function() {  // remove the actual elements from the DOM when fully hidden
+        $("#signUpModal").remove();
+    });
+    
+    $("#signUp").on("click", function(){
+      $("#signUpModal").modal({                    // wire up the actual modal functionality and show the dialog
+        "backdrop"  : "static",
+        "keyboard"  : true,
+        "show"      : true                     // ensure the modal is shown immediately
+      });
+    });
 
-    function getLocation() {
-      if (navigator.geolocation) {
-           navigator.geolocation.getCurrentPosition(initMap);
-       } else {
-         console.log("geolocation not supported");
-      }
-    }
+    $("#cancelModal").on("click", function(){
+      $("#signUpModal").modal("hide");
+    });
 
-    getLocation();
 });
