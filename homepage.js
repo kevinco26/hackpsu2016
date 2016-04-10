@@ -29,4 +29,19 @@ $( document ).ready(function() {
       $("#signUpModal").modal("hide");
     });
 
+    $("#employerCheck").on("click", function(){
+        if ($("#employerCheck").prop("checked"))
+        {
+          $(".userOptions").each(function(){
+            $(this).hide();
+          });
+        } 
+        else
+        {
+          $(".userOptions").each(function(){
+            $(this).show();
+          });
+        }
+    });
+
 });

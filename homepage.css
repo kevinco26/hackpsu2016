@@ -4,7 +4,7 @@ html {
 }
 
 body { 
-  background: url(assets/bg.png) no-repeat center center fixed; 
+  background: #24a8ac; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -45,7 +45,10 @@ h6 {
    margin-bottom: 40px;
    padding: 50px 15px;
    position: relative;
-   background-color: #8c4646;
+   background: -webkit-linear-gradient(top, rgba(0,160,62,0), rgba(0,160,62,1)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(top, rgba(0,160,62,0), rgba(0,160,62,1)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(top, rgba(0,160,62,0), rgba(0,160,62,1)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to top, rgba(0,160,62,0), rgba(0,160,62,1)); /* Standard syntax (must be last) */
    width: 100%;
 }
 
@@ -79,4 +82,12 @@ h6 {
 .signUpForm {
    text-align: center;
    font-weight: bold;
+}
+
+.footer {
+   position: absolute;
+   bottom: 0px;
+   background-color: rgb(40,117,79);
+   height: 60px;
+   width: 100%;
 }
