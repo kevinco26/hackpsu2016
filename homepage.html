@@ -21,14 +21,14 @@
            <span class="icon-bar"></span>
            <span class="icon-bar"></span>
          </button>
-         <a class="navbar-brand" href="#"><img class="logo" src="assets/logo.png" /></a>
+         <a class="navbar-brand" href="/"><img class="logo" src="assets/logo.png" /></a>
        </div>
 
        <!-- Collect the nav links, forms, and other content for toggling -->
        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
          <ul class="nav navbar-nav">
-           <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
-           <li><a href="#">Profile</a></li>
+           <li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
+           <li><a href="profile.html">Profile</a></li>
            <li><a href="#">About</a></li>
            <li><a href="#">Contact Us</a></li>
          </ul>
@@ -90,7 +90,7 @@
       </article>
    </div>
 
-   <div id="signUpModal" class="modal fade">
+   <div id="signUpModal" class="modal fade" data-keyboard="true" data-backdrop="true">
       <div class="modal-dialog">
          <div class="modal-content">
             <div class="modal-header">
@@ -105,28 +105,31 @@
                      <label class="center">I Am An Employer</label>
                   </div>
                </div>
-               <div class="userOptions">
+              
                   <div class="row">
                      <div class="form-group col-lg-12">
                         <label>Username</label>
-                        <input class="form-control"></input>
+                        <input class="form-control" id="username"></input>
                      </div>
                   </div>
-               </div>
+        
+            
                <div class="row">
                   <div class="form-group col-lg-6">
-                     <label>First Name</label>
-                     <input class="form-control"></input>
+                     <label><span class="userOptions">First </span> Name</label>
+                     <input class="form-control" id ="fname"></input>
                   </div>
+                <div class="userOptions">
                   <div class="form-group col-lg-6">
                      <label>Last Name</label>
-                     <input class="form-control"></input>
+                     <input class="form-control" id="lname"></input>
                   </div>
+               </div>
                </div>
                <div class="row">
                   <div class="form-group col-lg-6">
                      <label>Email</label>
-                     <input class="form-control"></input>
+                     <input class="form-control" id="email"></input>
                   </div>
                   <div class="form-group col-lg-6">
                      <label>Confirm Email</label>
@@ -136,7 +139,7 @@
                <div class="row">
                   <div class="form-group col-lg-6">
                      <label>Password</label>
-                     <input class="form-control" type="password"></input>
+                     <input class="form-control" type="password" id="password"></input>
                   </div>
                   <div class="form-group col-lg-6">
                      <label>Confirm Password</label>
@@ -146,17 +149,17 @@
                <div class="row">
                   <div class="form-group col-lg-12">
                      <label>Address</label>
-                     <input class="form-control"></input>
+                     <input class="form-control" id="address"></input>
                   </div>
                </div>
                <div class="row">
                   <div class="form-group col-lg-6">
                      <label>City</label>
-                     <input class="form-control"></input>
+                     <input class="form-control" id="city"></input>
                   </div>
                   <div class="form-group col-lg-6">
                      <label>State</label>
-                     <select class="form-control">
+                     <select class="form-control" id="state">
                          <option value="AL">Alabama</option>
                          <option value="AK">Alaska</option>
                          <option value="AZ">Arizona</option>
@@ -214,39 +217,39 @@
                <div class="row">
                   <div class="form-group col-lg-6">
                      <label>Zip Code</label>
-                     <input class="form-control"></input>
+                     <input class="form-control" id="zip"></input>
                   </div>
                   <div class="form-group col-lg-6"></div>
                </div>
                <div class="row">
                      <div class="form-group col-lg-12">
                      <label><span class="userOptions">Personal </span>Website</label>
-                     <input class="form-control"></input>
+                     <input class="form-control" id="website"></input>
                      </div>
                </div>
                <div class="userOptions">
                   <div class="row">
                      <div class="form-group col-lg-12">
                      <label>GitHub (optional, but IMPORTANT)</label>
-                     <input class="form-control" placeholder="https://github.com/user"></input>
+                     <input class="form-control" id="github" placeholder="https://github.com/user"></input>
                      </div>
                   </div>
                   <div class="row">
                      <div class="form-group col-lg-12">
                      <label>Stack Exchange Profile Link(optional, but IMPORTANT)</label>
-                     <input class="form-control" placeholder="http://stackoverflow.com/users/xxxxxxx/userxxxxxxx"></input>
+                     <input class="form-control" id="stackoverflow" placeholder="http://stackoverflow.com/users/xxxxxxx/userxxxxxxx"></input>
                      </div>
                   </div>
                   <div class="row">
                      <div class="form-group col-lg-12">
                      <label>Resume Link</label>
-                     <input class="form-control" placeholder="http://drive.google.com/resume.pdf"></input>
+                     <input class="form-control" placeholder="http://drive.google.com/resume.pdf" id="resume"></input>
                      </div>
                   </div>
                </div>
             </div>
             <!-- dialog buttons -->
-            <div class="modal-footer"><button id="cancelModal" type="button" class="btn btn-secondary">cancel</button><button type="button" class="btn btn-primary">Submit</button></div>
+            <div class="modal-footer"><button id="cancelModal" type="button" class="btn btn-secondary">cancel</button><button type="button" class="btn btn-primary" onclick="insertDatabase()">Submit</button></div>
 
          </div>
       </div>
@@ -257,5 +260,96 @@
          
       </div>
    </footer>
+   <script>
+   
+   function insertDatabase()
+   {
+
+
+      var stackoverflow = document.getElementById("stackoverflow").value;
+      var github = document.getElementById("github").value;
+
+      var idIndex= stackoverflow.indexOf("users/");
+      var str = stackoverflow.substring(idIndex+6);
+      var nextSlash = str.indexOf("/");
+
+      var idNumber = parseInt(str.substring(0,nextSlash));
+
+      if(isNaN(idNumber))
+        idNumber = -1;
+
+
+      
+      var username = document.getElementById("username").value;
+      var fname = document.getElementById("fname").value;
+      var lname = document.getElementById("lname").value;
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
+      var address = document.getElementById("address").value;
+      var city = document.getElementById("address").value;
+      var state = document.getElementById("address").value;
+      var zip = parseInt(document.getElementById("address").value);
+      if(isNaN(zip))
+        zip = -1;
+      var website = document.getElementById("website").value;
+
+      // Validation later
+
+      // Hash password later
+      var data = {username:username,
+                  fname:fname,
+                  lname:lname,
+                  email:email,
+                  password:password,
+                  address:address,
+                  city:city,
+                  state:state,
+                  zip:zip,
+                  website:website,
+                  stackoverflow:idNumber,
+                  githubUser:github
+                  };
+
+
+       jQuery.ajax({
+        type: "POST",
+        url: "/hackpsu/insert",
+        data: data,
+    
+        success: function(data){
+         // return true;
+         if(data.status == 200)
+         {
+           jQuery("#signUpModal").hide();
+           bootbox.dialog({
+            message: "Thank you for submitting the form",
+            title: "Form submitted",
+            buttons: {
+            success: {
+                label: "Continue",
+                className: "btn-primary btn-info",
+                callback: function() {
+
+                   window.location.href = "/profile/"+username;
+
+                  }
+              },
+            }
+
+           });
+        }
+
+     },
+     error: function(data){
+         // return false;
+         alert('Error! There was an error ' + JSON.stringify(data));
+        }
+    });
+
+
+   }
+
+
+   </script>
 </body>
 </html>

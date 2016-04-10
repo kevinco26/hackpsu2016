@@ -27,9 +27,18 @@ mongoose.connect('mongodb://localhost/Hackpsu2016');
 // DATABASE INTEGRATION
 
 var Schema = new mongoose.Schema({
-  name:       		 String,     //username
-  email:  			 String,
-  stackOverflowData: JSON
+          username: String,
+          fname:    String,
+          lname:    String,
+          email:    String,
+          password: String,
+          address:  String,
+          city:     String,
+          state:    String,
+          zip:      Number,
+          website:  String,
+          stackoverflow: Number,
+          githubUser:   String
 });
 
 var user = mongoose.model('Users',Schema);
@@ -37,15 +46,30 @@ var user = mongoose.model('Users',Schema);
 
 app.post('/hackpsu/insert',function(req, res) {
 
-  console.log(req.body.stackoverflow);
+  new user({
+    
+      username:req.body.username,
+      fname:req.body.fname,
+      lname:req.body.lname,
+      email:req.body.email,
+      password:req.body.password,
+      address:req.body.address,
+      city:req.body.city,
+      state:req.body.state,
+      zip:req.body.zip,
+      website:req.body.website,
+      stackoverflow:req.body.idNumber,
+      githubUser:req.body.github
 
-  // new user({
-  // name:  "Kevin",
-  // email:       "kevinco@gmail.com",
-  // stackOverflowData:req.body
-  // }).save(function(err,doc){
-  //   if(err)res.json(err);
-  // });
+  }).save(function(err,doc){
+    if(err){
+      console.log(err);
+      res.json(err);
+    }
+    else
+      res.json({status:200});
+
+  });
 
 }); 
 
@@ -56,6 +80,10 @@ app.get('/',function(req,res){
 
 app.get('/homepage.css',function(req,res){
    res.sendFile(__dirname + '/homepage.css');
+});
+
+app.get('/profile/:user',function(req,res){
+   res.sendFile(__dirname + '/profile.html');
 });
 
 app.get('/assets/bg.png',function(req,res){
