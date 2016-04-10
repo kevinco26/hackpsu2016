@@ -51,7 +51,7 @@ app.get('/getData/:user',function(req,res){
 
   var userPassed = req.params.user;
   user.find({username:userPassed},function(err,docs){
-    console.log(docs);
+    // console.log(docs);
       if(err) 
         return err;
       else

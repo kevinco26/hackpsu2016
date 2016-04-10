@@ -46,7 +46,7 @@
    </nav>
    <header class="sb-page-header">
       <div class="container">
-         <h1>Spear IT</h1>
+         <h1>ENDPOINT</h1>
          <h4>An integrated solution to finding the right technical candidate for the right technical job.</h4>
       </div>
    </header>
@@ -89,11 +89,11 @@
       </article>
    </div>
 
-   <div id="signUpModal" class="modal fade" data-keyboard="true" data-backdrop="true">
+   <div id="signUpModal" class="modal fade" data-keyboard="true" data-backdrop="">
       <div class="modal-dialog">
          <div class="modal-content">
             <div class="modal-header">
-               <button type="button" class="close" data-dismiss="modal">&times;</button>
+               <button onclick="$('.skillsQuestions').empty()" type="button" class="close" data-dismiss="modal">&times;</button>
                <h4 class="modal-title" style="color: black;">Registration</h4>
             </div>
             <!-- dialog body -->
@@ -243,8 +243,10 @@
                <div class="skillsQuestions">
                </div>
 
-                <button class="btn btn-info" onclick="appendSkills()">Add Additional Skill</button>
+                <button class="btn btn-info userOptions " onclick="appendSkills()">Add Additional Skill</button>
                 <br>
+                <br>
+
                <div class="row">
                      <div class="form-group col-lg-12">
                      <label><span class="userOptions">Personal </span>Website</label>
@@ -260,7 +262,7 @@
                   </div>
                   <div class="row">
                      <div class="form-group col-lg-12">
-                     <label>Stack Exchange Profile link(optional, but IMPORTANT)</label>
+                     <label>Stack Exchange Profile link (optional, but IMPORTANT)</label>
                      <input class="form-control" id="stackoverflow" placeholder="http://stackoverflow.com/users/xxxxxxx/userxxxxxxx"></input>
                      </div>
                   </div>
@@ -273,7 +275,7 @@
                </div>
             </div>
             <!-- dialog buttons -->
-            <div class="modal-footer"><button id="cancelModal" type="button" class="btn btn-secondary">cancel</button><button type="button" class="btn btn-primary" onclick="insertDatabase()">Submit</button></div>
+            <div class="modal-footer"><button onclick="$('.skillsQuestions').empty()" id="cancelModal" type="button" class="btn btn-secondary">cancel</button><button type="button" class="btn btn-primary" onclick="insertDatabase()">Submit</button></div>
 
          </div>
       </div>
