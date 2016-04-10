@@ -1,0 +1,39 @@
+.mychart{
+   position: relative;
+   width:600px;
+   height:400px;
+}
+
+.space {
+   padding-top: 20px;
+}
+
+.plot-title {
+   position: relative;
+   left: 55px;
+}
+
+li {
+   font-size: 20px;
+   position: relative;
+   left: 20px;
+}
+
+li a:visited {
+   color: white;
+}
+
+li a:link {
+   color: white;
+}
+
+h2 {
+   font-size: 40px;
+   color: white;
+}
+
+ul {
+    font-size: 30px;
+   color: white;
+}
+

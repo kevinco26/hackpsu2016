@@ -2,8 +2,11 @@
 <head>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.flot/0.8.3/jquery.flot.min.js"></script>
+<script src="/jquery.flot.barnumbers.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="/homepage.css">
+<link rel="stylesheet" type="text/css" href="/profile.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="bootbox.min.js"></script>
 <script src="/profile.js"></script>
@@ -28,32 +31,34 @@
        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
          <ul class="nav navbar-nav">
            <li><a href="/">Home <span class="sr-only">(current)</span></a></li>
-           <li class="active"><a href="profile.html">Profile</a></li>
+           <li class="active"><a href="#">Profile</a></li>
            <li><a href="#">About</a></li>
            <li><a href="#">Contact Us</a></li>
          </ul>
-         <form class="navbar-form navbar-left" role="search">
-           <div class="form-group">
-             <input type="text" class="form-control" placeholder="Search">
-           </div>
-           <button type="submit" class="btn btn-default">Submit</button>
-         </form>
          <ul class="nav navbar-nav navbar-right">
-           <li><a href="#">Log In</a></li>
-           <li><a id="signUp" href="#">Sign Up</a></li>
+           <li><a href="#">Hello <span class="username"></span>!</a></li>
          </ul>
        </div><!-- /.navbar-collapse -->
      </div><!-- /.container-fluid -->
    </nav>
   
    <div id="main-content" class="container-fluid">
-            
-   </div>
+      <header class="sb-page-header">
+        <div class="container">
+           <h1><span class="fname"></span> <span class="lname"></span></h1>
+        </div>
+      </header>
+      <div class="row">
+          <div class="col-md-6 stackoverflow">
+              <h2 class="text-center plot-title">Stack Exchange Data</h2>
+                <div id="stackplot" class="mychart"></div>
+          </div>
+          <div class="col-md-6 stackoverflow">
+              <h2 class="text-center">GitHub Data</h2>
 
-   <footer class="footer">
-      <div class="container">
-         
+              <ul id="repoList">Repository List</ul>
+          </div>
       </div>
-   </footer>
+   </div>
 </body>
 </html>
