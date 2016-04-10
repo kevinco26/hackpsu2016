@@ -45,6 +45,32 @@ $(document).ready(function(){
             });
         };
 
+        $.fn.UseTooltip2 = function () {
+            $(this).bind("plothover", function (event, pos, item) {
+                if (item) {
+                    if ((previousLabel != item.series.label) ||
+                 (previousPoint != item.dataIndex)) {
+                        previousPoint = item.dataIndex;
+                        previousLabel = item.series.label;
+                        $("#tooltip").remove();
+ 
+                        var x = item.pageX;
+                        var y = item.pageY;
+ 
+                        var color = item.series.color;
+                        //alert(color)
+                        //console.log(item.series.xaxis.ticks[x].label);                
+                      
+                        showToolTip("tooltip", x, y, 14, "white",
+                           "&nbsp;&nbsp;&nbsp;&nbsp;" + item.datapoint[1] + "&nbsp;&nbsp;&nbsp;&nbsp;");
+                    }
+                } else {
+                    $("#tooltip").remove();
+                    previousPoint = null;
+                }
+            });
+        };
+
     function showToolTip(id, x, y, fontSize, color, contents) {     
    //PRE:   x and y are page coordinates, id is the id of the div to be created, contents is information to be displayed
    //POST:  A div is appended to the body of the page and contains contents     
@@ -81,9 +107,18 @@ $(document).ready(function(){
                   $(".lname").each(function(){
                      $(".lname").html(data.lname);
                   });
-               
 
-               if (data.stackoverflow) {
+                  var attempt;
+                  try
+                  {
+                     attempt = parseInt(data.stackoverflow);
+                  }
+                  catch(Ex)
+                  {
+                     alert("error");
+                  }
+
+                  if (attempt != -1) {
                   jQuery.ajax({
                       url: "https://api.stackexchange.com/2.2/users/"+ data.stackoverflow + "?site=stackoverflow&filter=!-*f(6q0gNxwu",
                       dataType: 'json',
@@ -98,7 +133,6 @@ $(document).ready(function(){
                              dataType: JSON
                            });
                            stackdata = stackdata.items[0];
-                           console.log(stackdata);
 
                            
 
@@ -117,7 +151,7 @@ $(document).ready(function(){
                            ];
 
                            var ticks = [
-                               [0, "Question Count"], [1, "Gold Badges"], [2, "Silver Badges"], [3, "Bronze Badges"], [4, "Question Count"], [5, "Reputation"], [6, "Up Votes"]
+                               [0, "Answer Count"], [1, "Gold Badges"], [2, "Silver Badges"], [3, "Bronze Badges"], [4, "Question Count"], [5, "Reputation"], [6, "Up Votes"]
                            ];
 
                            var options = {
@@ -180,34 +214,125 @@ $(document).ready(function(){
                          }
                       });
 
-               }
-               if (data.githubUser) {
-                  index = data.githubUser.indexOf(".com") + 5;
-                  var user = data.githubUser.substring(index).trim();
-                  console.log("user is " + user);
-                  jQuery.ajax({
-                   url: "https://api.github.com/users/"+ user +"/repos",
-                   dataType: 'json',
-                   error: function(){
-                     alert('Error! There was an error');
-                   },
-                   success: function(data){
-                        if (data)
-                        {
-                           var repo;
-                           for (var i = 0; i < data.length; i++)
+                  }
+                
+
+                  if (data.skills) {
+                  var skills = data.skills;
+                     console.log(skills);
+                           var rawData = [];
+                           for (var i = 0; i < skills.length; i++)
                            {
-                              repo = data[i].clone_url;
-                              console.log(data[i]);
-                              $("#repoList").append('<li><a href="' + repo + '">' + data[i].name + '</a></li>');
+                              rawData.push([i, parseInt(skills[i].proficiencyLevel)]);
+                           }
+                              
+                           var skillSet = [
+                               { label: "Skill Data", data: rawData, color: "white" }
+                           ];
+
+                           var ticks = [];
+
+                           for (var i = 0; i < skills.length; i++)
+                           {
+                              ticks.push([i, skills[i].skillValue]);
+                           }
+                           console.log("ticks");
+                           console.log(ticks);
+                           
+
+                           var options = {
+                              series: {
+                                  bars: {
+                                      show: true
+                                  }
+                              },
+                              bars: {
+                                  align: "center",
+                                  barWidth: 0.5,
+                                  horizontal: false,
+                                  fillColor: { colors: [{ opacity: 0.5 }, { opacity: 1}] },
+                                  lineWidth: 1,
+                              },
+                              xaxis: {
+                                 axisLabel: "Skill Type",
+                                 font:{
+                                    size:15,
+                                    style:"italic",
+                                    weight:"bold",
+                                    family:"sans-serif",
+                                    variant:"small-caps",
+                                    color: "white"
+                                 },
+                                  tickColor: "white",
+                                  color: "gray",
+                                  ticks: ticks
+                              },
+                              legend: {
+                                 show: false
+                              },
+                              yaxis: {
+                                 max: 10,
+                                 min: 0,
+                                 font:{
+                                    size:15,
+                                    style:"italic",
+                                    weight:"bold",
+                                    family:"sans-serif",
+                                    variant:"small-caps",
+                                    color: "white",
+                                 },
+                                  axisLabel: "Proficiency Level",
+                                  axisLabelUseCanvas: false,
+                                  axisLabelFontSizePixels: 12,
+                                  axisLabelFontFamily: 'Verdana, Arial',
+                                  tickColor: "#5E5E5E",
+                                  
+                              },
+                              grid: {
+                                 margin: 15,
+                                 hoverable: true,
+                                  borderWidth: 2,
+                                  backgroundColor: { colors: ["#171717", "#4F4F4F"] }
+                              }
+                          };
+                          $(".skills").each(function(){
+                              $(this).show();
+                           });
+                          $.plot($("#skillplot"), skillSet, options);
+                          $("#skillplot").UseTooltip2();
+                         }
+                      
+                  console.log("git user is " + data.githubUser);
+                  if (data.githubUser) {
+                     index = data.githubUser.indexOf(".com") + 5;
+                     var user = data.githubUser.substring(index).trim();
+                     console.log("user is " + user);
+                     jQuery.ajax({
+                      url: "https://api.github.com/users/"+ user +"/repos",
+                      dataType: 'json',
+                      error: function(){
+                        alert('Error! There was an error');
+                      },
+                      success: function(data){
+                           if (data)
+                           {
+                              var repo;
+                              for (var i = 0; i < data.length; i++)
+                              {
+                                 repo = data[i].clone_url;
+                                 console.log(data[i]);
+                                 $(".github").each(function(){
+                                 $(this).show();
+                                 });
+                                 $("#repoList").append('<li><a href="' + repo + '">' + data[i].name + '</a></li>');
+                              }
                            }
                         }
-                     }
-                  });
+                     });
+
+                  }
 
                }
-
-            }
            }
         }
    });
