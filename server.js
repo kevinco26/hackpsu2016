@@ -39,6 +39,7 @@ var Schema = new mongoose.Schema({
           state:    String,
           zip:      Number,
           website:  String,
+          skills: Array,
           stackoverflow: Number,
           githubUser:   String
 });
@@ -59,7 +60,6 @@ app.get('/getData/:user',function(req,res){
   });
 });
 app.post('/hackpsu/insert',function(req, res) {
-   console.log(req.body.githubUser);
   new user({
     
       username:req.body.username,
@@ -73,6 +73,7 @@ app.post('/hackpsu/insert',function(req, res) {
       state:req.body.state,
       zip:req.body.zip,
       website:req.body.website,
+      skills:req.body.skills,
       stackoverflow:req.body.stackoverflow,
       githubUser:req.body.githubUser
 
