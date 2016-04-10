@@ -4,7 +4,7 @@ html {
 }
 
 body { 
-  background: #24a8ac; 
+  background: url(assets/bg2.png) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -37,7 +37,7 @@ h4 {
 
 h6 {
    font-size: 20px;
-   color: black;
+   color: white;
    font-weight: bold;
 }
 
