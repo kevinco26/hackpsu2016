@@ -268,6 +268,16 @@
 
       var stackoverflow = document.getElementById("stackoverflow").value;
       var github = document.getElementById("github").value;
+      var usertype;
+
+      if (jQuery("#employerCheck").prop("checked"))
+      {
+         usertype = "company";
+      }
+      else
+      {
+         usertype = "applicant";
+      }
 
       var idIndex= stackoverflow.indexOf("users/");
       var str = stackoverflow.substring(idIndex+6);
@@ -276,7 +286,8 @@
       var idNumber = parseInt(str.substring(0,nextSlash));
 
       if(isNaN(idNumber))
-        idNumber = -1;
+         idNumber = -1;
+     
 
 
       
@@ -286,9 +297,9 @@
       var email = document.getElementById("email").value;
       var password = document.getElementById("password").value;
       var address = document.getElementById("address").value;
-      var city = document.getElementById("address").value;
-      var state = document.getElementById("address").value;
-      var zip = parseInt(document.getElementById("address").value);
+      var city = document.getElementById("city").value;
+      var state = document.getElementById("state").value;
+      var zip = parseInt(document.getElementById("zip").value);
       if(isNaN(zip))
         zip = -1;
       var website = document.getElementById("website").value;
@@ -297,6 +308,7 @@
 
       // Hash password later
       var data = {username:username,
+                  usertype:usertype,
                   fname:fname,
                   lname:lname,
                   email:email,

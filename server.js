@@ -19,15 +19,17 @@ var http = require('http').Server(app);
 
 app.use(bodyParser.urlencoded({ extended: true })); 
 
+mongoose.connect('mongodb://spearit:spearit1@ds021000.mlab.com:21000/hackpsu2016');
 
 
-mongoose.connect('mongodb://localhost/Hackpsu2016');
+//mongoose.connect('mongodb://localhost/Hackpsu2016');
 
 
 // DATABASE INTEGRATION
 
 var Schema = new mongoose.Schema({
           username: String,
+          usertype:     String,
           fname:    String,
           lname:    String,
           email:    String,
@@ -45,10 +47,11 @@ var user = mongoose.model('Users',Schema);
 //var jsonObject; 
 
 app.post('/hackpsu/insert',function(req, res) {
-
+   console.log(req.body.githubUser);
   new user({
     
       username:req.body.username,
+      usertype:req.body.usertype,
       fname:req.body.fname,
       lname:req.body.lname,
       email:req.body.email,
@@ -58,8 +61,8 @@ app.post('/hackpsu/insert',function(req, res) {
       state:req.body.state,
       zip:req.body.zip,
       website:req.body.website,
-      stackoverflow:req.body.idNumber,
-      githubUser:req.body.github
+      stackoverflow:req.body.stackoverflow,
+      githubUser:req.body.githubUser
 
   }).save(function(err,doc){
     if(err){
@@ -84,6 +87,10 @@ app.get('/homepage.css',function(req,res){
 
 app.get('/profile/:user',function(req,res){
    res.sendFile(__dirname + '/profile.html');
+});
+
+app.get('/profile.js',function(req,res){
+   res.sendFile(__dirname + '/profile.js');
 });
 
 app.get('/assets/bg.png',function(req,res){
