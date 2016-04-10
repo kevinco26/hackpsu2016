@@ -32,8 +32,29 @@ h2 {
    color: white;
 }
 
-ul {
-    font-size: 30px;
+
+body { 
+  background: url(assets/bg2.png) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#repoList {
+   position: relative;
+   top: 40px;
+   left: 50px;
+   font-size: 30px;
    color: white;
+   width: 80%;
+}
+
+.sb-page-header {
+   margin-bottom: 40px;
+   padding: 50px 15px;
+   position: relative;
+   background: none;
+   width: 100%;
 }
 

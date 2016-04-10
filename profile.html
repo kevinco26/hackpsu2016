@@ -3,7 +3,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.flot/0.8.3/jquery.flot.min.js"></script>
-<script src="/jquery.flot.barnumbers.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="/homepage.css">
 <link rel="stylesheet" type="text/css" href="/profile.css">
@@ -45,18 +44,19 @@
    <div id="main-content" class="container-fluid">
       <header class="sb-page-header">
         <div class="container">
-           <h1><span class="fname"></span> <span class="lname"></span></h1>
+           <h1 class="text-center"><span class="company"></span><span class="fname"></span> <span class="lname"></span></h1>
         </div>
       </header>
       <div class="row">
           <div class="col-md-6 stackoverflow">
               <h2 class="text-center plot-title">Stack Exchange Data</h2>
+              <hr>
                 <div id="stackplot" class="mychart"></div>
           </div>
           <div class="col-md-6 stackoverflow">
               <h2 class="text-center">GitHub Data</h2>
-
-              <ul id="repoList">Repository List</ul>
+              <hr>
+              <ul id="repoList"><span>Repository List</span></ul>
           </div>
       </div>
    </div>

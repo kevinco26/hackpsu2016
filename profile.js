@@ -9,6 +9,9 @@ $(document).ready(function(){
     $(".stackoverflow").each(function(){
       $(this).hide();
    });
+    $(".company").each(function(){
+      $(this).hide();
+   });
 
     var previousPoint = null, previousLabel = null;
  
@@ -64,12 +67,21 @@ $(document).ready(function(){
            success: function(data){
             data = data[0];
             if (data){
-               $(".fname").each(function(){
-                  $(".fname").html(data.fname);
-               });
-               $(".lname").each(function(){
-                  $(".lname").html(data.lname);
-               });
+               if (data.usertype == "company")
+               {
+                     $(".company").each(function(){
+                        $(".company").html(data.fname).show();
+                     });
+               }
+               else
+               {
+                  $(".fname").each(function(){
+                     $(".fname").html(data.fname);
+                  });
+                  $(".lname").each(function(){
+                     $(".lname").html(data.lname);
+                  });
+               
 
                if (data.stackoverflow) {
                   jQuery.ajax({
@@ -197,5 +209,6 @@ $(document).ready(function(){
 
             }
            }
+        }
    });
 });

@@ -113,6 +113,10 @@ app.get('/assets/bg.png',function(req,res){
    res.sendFile(__dirname + '/assets/bg.png');
 });
 
+app.get('/assets/bg2.png',function(req,res){
+   res.sendFile(__dirname + '/assets/bg2.png');
+});
+
 app.get('/assets/logo.png',function(req,res){
    res.sendFile(__dirname + '/assets/logo.png');
 });
